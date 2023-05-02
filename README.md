@@ -1,4 +1,4 @@
-## Medium editor clone built with Lexical
+# Medium editor clone built with Lexical
 
 This is a Medium editor clone built with [Lexical](https://lexical.dev). If you’re already familiar with [medium.com](https://medium.com), you’ll feel right at home.
 

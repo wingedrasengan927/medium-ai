@@ -2,7 +2,7 @@
 
 This is a Medium editor clone built with [Lexical](https://lexical.dev). If you’re already familiar with [medium.com](https://medium.com), you’ll feel right at home.
 
-![](/Users/mmt9876/Library/Application%20Support/marktext/images/2023-05-02-23-29-05-image.png)
+![editor-preview](https://github.com/wingedrasengan927/lexical-medium-clone/blob/main/public/images/lexical-medium-clone.png)
 
 ## Getting started
 

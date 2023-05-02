@@ -1,0 +1,49 @@
+@tailwind base;
+
+.editor-code {
+    @apply bg-gray-100 font-robotomono font-light text-base block py-4 px-14 mt-7 relative overflow-x-auto leading-8 box-border;
+    tab-size: 4;
+}
+
+.editor-code:before {
+    @apply absolute left-0 top-0 border-r-2 border-solid border-gray-200 bg-gray-100 text-gray-400 text-right p-4 whitespace-pre-wrap;
+    content: attr(data-gutter);
+    min-width: 25px;
+}
+
+/* .editor-code:after {
+    @apply absolute top-0 right-1 p-1 text-sm uppercase text-gray-900;
+    content: attr(data-highlight-language);
+} */
+
+.editor-tokenComment {
+    @apply text-gray-500;
+}
+
+.editor-tokenPunctuation {
+    @apply text-gray-400;
+}
+
+.editor-tokenProperty {
+    @apply text-pink-800;
+}
+
+.editor-tokenSelector {
+    @apply text-lime-600;
+}
+
+.editor-tokenOperator {
+    @apply text-amber-700;
+}
+
+.editor-tokenAttr {
+    @apply text-cyan-600;
+}
+
+.editor-tokenVariable {
+    @apply text-amber-500;
+}
+
+.editor-tokenFunction {
+    @apply text-pink-500;
+}

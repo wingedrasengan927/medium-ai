@@ -1,0 +1,85 @@
+@import "tailwindcss/base";
+@import "./styles/font-styles.css";
+@import "./styles/code-styles.css";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+body {
+    @apply bg-white m-0 relative;
+}
+
+.editor-container {
+    @apply w-full mt-4 min-h-screen;
+}
+
+.editor-input {
+    @apply pb-8 font-merriweather text-black max-w-3xl mx-auto whitespace-normal px-5 h-full text-xl leading-9 outline-none focus:outline-none selection:bg-yellow-300;
+}
+
+.editor-paragraph {
+    @apply relative mt-7;
+}
+
+.editor-text-bold {
+    @apply font-bold;
+}
+
+.editor-text-italic {
+    @apply italic;
+}
+
+.editor-text-bold.editor-text-italic {
+    @apply font-bold italic;
+}
+
+.editor-text-underline {
+    @apply underline underline-offset-2;
+}
+
+.editor-text-code {
+    @apply bg-gray-200 font-robotomono px-2 py-1 rounded-md text-lg;
+}
+
+.editor-heading-h1 {
+    @apply text-6xl font-title pb-4;
+}
+
+.editor-heading-h2 {
+    @apply text-4xl font-lato font-bold mt-9;
+}
+
+.editor-heading-h3 {
+    @apply text-3xl font-lato font-bold mt-7;
+}
+
+.editor-quote {
+    @apply italic border-l-4 border-black pl-5 -ml-6 mt-7;
+}
+
+.equation-selected {
+    @apply bg-gray-100;
+}
+
+.editor-image {
+    @apply w-full mt-7;
+}
+
+.image-selected {
+    @apply border-4 border-sky-500;
+}
+
+.editor-link {
+    @apply underline-offset-2 underline;
+}
+
+.editor-listitem {
+    @apply ml-5 mb-4 pl-3;
+}
+
+.editor-list-ol {
+    @apply list-decimal p-0 m-0 mt-7;
+}
+
+.editor-list-ul {
+    @apply list-disc p-0 m-0 mt-7;
+}

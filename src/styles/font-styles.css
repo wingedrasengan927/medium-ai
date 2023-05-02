@@ -1,0 +1,73 @@
+@tailwind base;
+
+@font-face {
+    font-family: "merriweather";
+    src: url("../assets/fonts/Merriweather/Merriweather-Light.ttf");
+}
+
+@font-face {
+    font-family: "merriweather";
+    src: url("../assets/fonts/Merriweather/Merriweather-Bold.ttf");
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "merriweather";
+    src: url("../assets/fonts/Merriweather/Merriweather-LightItalic.ttf");
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "merriweather";
+    src: url("../assets/fonts/Merriweather/Merriweather-BoldItalic.ttf");
+    font-weight: bold;
+    font-style: italic;
+}
+
+/* Load monospace font */
+
+@font-face {
+    font-family: "roboto-mono";
+    src: url("../assets/fonts/RobotoMono/RobotoMono-Light.ttf");
+}
+
+@font-face {
+    font-family: "roboto-mono";
+    src: url("../assets/fonts/RobotoMono/RobotoMono-LightItalic.ttf");
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "roboto-mono";
+    src: url("../assets/fonts/RobotoMono/RobotoMono-Regular.ttf");
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "roboto-mono";
+    src: url("../assets/fonts/RobotoMono/RobotoMono-Italic.ttf");
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "dm-serif-display";
+    src: url("../assets/fonts/DM_Serif_Display/DMSerifDisplay-Regular.ttf");
+}
+
+@font-face {
+    font-family: "lato";
+    src: url("../assets/fonts/Lato/Lato-Regular.ttf");
+}
+
+@font-face {
+    font-family: "lato";
+    src: url("../assets/fonts/Lato/Lato-Bold.ttf");
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "lato";
+    src: url("../assets/fonts/Lato/Lato-Light.ttf");
+    font-weight: lighter;
+}

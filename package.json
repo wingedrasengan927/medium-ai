@@ -1,0 +1,43 @@
+{
+  "name": "lexical-medium-clone",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/styled": "^11.10.6",
+    "@lexical/react": "^0.10.0",
+    "@mui/icons-material": "^5.11.16",
+    "@mui/styled-engine": "^5.12.0",
+    "@types/lodash-es": "^4.17.7",
+    "@types/prettier": "^2.7.2",
+    "daisyui": "^2.51.5",
+    "katex": "^0.16.6",
+    "lexical": "^0.10.0",
+    "lodash-es": "^4.17.21",
+    "prettier": "^2.8.8",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/katex": "^0.16.0",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
+    "@vitejs/plugin-react-swc": "^3.0.0",
+    "autoprefixer": "^10.4.14",
+    "eslint": "^8.38.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.3.4",
+    "postcss": "^8.4.23",
+    "tailwindcss": "^3.3.1",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.0"
+  }
+}

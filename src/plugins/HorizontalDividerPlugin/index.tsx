@@ -17,7 +17,7 @@ export function HorizontalDividerPlugin() {
     useEffect(() => {
         return editor.registerCommand(
             INSERT_HORIZONTAL_DIVIDER_COMMAND,
-            (type) => {
+            () => {
                 const selection = $getSelection();
 
                 if (!$isRangeSelection(selection)) {

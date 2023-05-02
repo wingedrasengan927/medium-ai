@@ -19,7 +19,6 @@ import { useEffect } from "react";
 import { HeadingNode, $isHeadingNode } from "@lexical/rich-text";
 import { $isHorizontalDividerNode } from "../../nodes/HorizontalDividerNode";
 import { $isCodeNode, $createCodeNode } from "@lexical/code";
-import { DnsSharp } from "@mui/icons-material";
 
 const insertParagraphAtEnd = () => {
     // If the last child of the root is Decorator node,

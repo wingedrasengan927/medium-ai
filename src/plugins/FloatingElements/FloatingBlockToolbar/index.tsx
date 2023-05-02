@@ -25,7 +25,6 @@ import AddIcon from "@mui/icons-material/Add";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import ImageIcon from "@mui/icons-material/Image";
 import DataObjectIcon from "@mui/icons-material/DataObject";
-import SaveAltIcon from "@mui/icons-material/SaveAlt";
 
 type FloatingBlockToolbarProps = {
     editor: LexicalEditor;

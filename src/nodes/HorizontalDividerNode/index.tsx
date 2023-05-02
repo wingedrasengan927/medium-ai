@@ -88,9 +88,7 @@ export class HorizontalDividerNode extends DecoratorNode<JSX.Element> {
         return new HorizontalDividerNode(node.__key);
     }
 
-    static importJSON(
-        serializedNode: SerializedLexicalNode
-    ): HorizontalDividerNode {
+    static importJSON(): HorizontalDividerNode {
         return $createHorizontalDividerNode();
     }
 

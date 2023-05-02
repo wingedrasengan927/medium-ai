@@ -1,6 +1,4 @@
 import type {
-    DOMConversionMap,
-    DOMConversionOutput,
     EditorConfig,
     LexicalNode,
     NodeKey,

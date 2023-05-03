@@ -6,7 +6,9 @@ import {
     COMMAND_PRIORITY_EDITOR,
     LexicalCommand,
     $isTextNode,
+    KEY_BACKSPACE_COMMAND,
     LexicalEditor,
+    COMMAND_PRIORITY_HIGH,
 } from "lexical";
 import { mergeRegister, $findMatchingParent } from "@lexical/utils";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
@@ -21,6 +23,8 @@ import { $setBlocksType } from "@lexical/selection";
 import { getSelectedNode } from "../FloatingElements/utils";
 import { $isLinkNode } from "@lexical/link";
 import { TOGGLE_LINK_COMMAND } from "@lexical/link";
+import { $isImageNode } from "../../nodes/Image/ImageNode";
+import { $isEquationNode } from "../../nodes/Math/EquationNode";
 
 export const FORMAT_HEADING_COMMAND: LexicalCommand<void> = createCommand(
     "FORMAT_HEADING_COMMAND"
@@ -175,6 +179,43 @@ export function EditorCommandsPlugin() {
                     return true;
                 },
                 COMMAND_PRIORITY_EDITOR
+            ),
+            editor.registerCommand<KeyboardEvent>(
+                KEY_BACKSPACE_COMMAND,
+                (event) => {
+                    const selection = $getSelection();
+                    if (!$isRangeSelection(selection)) {
+                        return false;
+                    }
+                    event.preventDefault();
+                    const { anchor } = selection;
+                    const anchorNode = anchor.getNode();
+
+                    if (selection.isCollapsed() && $isTextNode(anchorNode)) {
+                        let previousSibling = anchorNode.getPreviousSibling();
+                        if (previousSibling == null && anchor.offset === 0) {
+                            previousSibling = anchorNode
+                                .getParentOrThrow()
+                                .getPreviousSibling();
+                        }
+                        if (
+                            previousSibling != null &&
+                            ($isEquationNode(previousSibling) ||
+                                $isImageNode(previousSibling))
+                        ) {
+                            const nodeElement = editor.getElementByKey(
+                                previousSibling.getKey()
+                            );
+                            if (nodeElement) {
+                                nodeElement.click();
+                                return true;
+                            }
+                        }
+                    }
+
+                    return false;
+                },
+                COMMAND_PRIORITY_HIGH
             )
         );
     }, [editor]);

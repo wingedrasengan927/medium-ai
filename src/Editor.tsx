@@ -29,6 +29,8 @@ import { ListItemNode, ListNode } from "@lexical/list";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { EditorState } from "lexical";
 import { useRef } from "react";
+import AIAutoCompletePlugin from "./plugins/AIAutoCompletePlugin";
+import { AutoCompleteNode } from "./nodes/AIAutoCompleteNode";
 
 // load initial state from a json file
 import data from "./assets/initialState.json";
@@ -57,6 +59,7 @@ export default function Editor() {
             QuoteNode,
             ListNode,
             ListItemNode,
+            AutoCompleteNode,
         ],
         theme: basicTheme,
     };
@@ -97,6 +100,7 @@ export default function Editor() {
                     <CodeActionMenuPlugin />
                     <ListPlugin />
                     <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
+                    <AIAutoCompletePlugin />
                 </div>
             </div>
         </LexicalComposer>

@@ -40,6 +40,10 @@ body {
     @apply bg-gray-200 font-robotomono px-2 py-1 rounded-md text-lg;
 }
 
+.editor-text-autocomplete {
+    @apply text-gray-400 selection:bg-transparent cursor-default caret-transparent;
+}
+
 .editor-heading-h1 {
     @apply text-6xl font-title pb-4;
 }

@@ -30,6 +30,7 @@ const basicTheme = {
         strikethrough: "editor-text-strikethrough",
         underlineStrikethrough: "editor-text-underlineStrikethrough",
         code: "editor-text-code",
+        autocomplete: "editor-text-autocomplete",
     },
     code: "editor-code",
     codeHighlight: {

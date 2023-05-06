@@ -276,6 +276,7 @@ function useFloatingTextFormatToolbar(
     const [isQuote, setIsQuote] = useState(false);
     const [isCodeHighlight, setIsCodeHighlight] = useState(false);
     const [isMouseUp, setIsMouseUp] = useState(false);
+    const [isAutoCompleteText, setIsAutoCompleteText] = useState(false);
 
     const updateToolbar = useCallback(() => {
         editor.getEditorState().read(() => {
@@ -311,6 +312,7 @@ function useFloatingTextFormatToolbar(
             if (selection.getTextContent() !== "") {
                 setIsCodeHighlight($isCodeHighlightNode(node));
                 setIsText($isTextNode(node));
+                setIsAutoCompleteText(node.getType() === "autocomplete");
             } else {
                 setIsText(false);
             }
@@ -360,7 +362,13 @@ function useFloatingTextFormatToolbar(
         );
     }, [editor, updateToolbar]);
 
-    if (!isText || isLink || isCodeHighlight || !isMouseUp) {
+    if (
+        !isText ||
+        isLink ||
+        isCodeHighlight ||
+        !isMouseUp ||
+        isAutoCompleteText
+    ) {
         return null;
     }
 

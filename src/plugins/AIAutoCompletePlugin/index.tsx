@@ -84,7 +84,13 @@ const handleSelectionChange = (editor: LexicalEditor) => {
         return;
     }
 
-    if (!selection.isCollapsed()) {
+    if (selection.isCollapsed()) {
+        const selectedNode = selection.getNodes()[0];
+        if (selectedNode.getType() === "autocomplete") {
+            selectedNode.getPreviousSibling()?.select();
+            return;
+        }
+    } else {
         const selectedNodes = selection.getNodes();
         if (selectedNodes.length > 1) {
             deleteAutoCompleteNodes(editor);

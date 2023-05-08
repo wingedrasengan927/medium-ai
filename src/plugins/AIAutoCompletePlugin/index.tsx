@@ -5,7 +5,9 @@ import {
     COMMAND_PRIORITY_NORMAL,
     KEY_TAB_COMMAND,
     LexicalEditor,
+    LexicalNode,
     NodeKey,
+    RangeSelection,
     SELECTION_CHANGE_COMMAND,
 } from "lexical";
 
@@ -23,6 +25,70 @@ import {
     $createAutoCompleteNode,
     AutoCompleteNode,
 } from "../../nodes/AIAutoCompleteNode";
+
+import { AUTOCOMPLETE_ENDPOINT, WAIT_TIME } from "../../constants";
+
+type AutoCompleteResponse = {
+    message: string;
+};
+
+async function getSuggestions(
+    text: string
+): Promise<AutoCompleteResponse | null> {
+    const response = await fetch(AUTOCOMPLETE_ENDPOINT + "?text=" + text);
+    if (response.ok) {
+        const json = await response.json();
+        return json;
+    }
+
+    return null;
+}
+
+const getSuggestionsDebounced = (() => {
+    let timeout: ReturnType<typeof setTimeout> | null = null;
+    return async (text: string) => {
+        if (timeout !== null) {
+            clearTimeout(timeout);
+        }
+        return new Promise((resolve) => {
+            timeout = setTimeout(async () => {
+                const suggestions = await getSuggestions(text);
+                resolve(suggestions);
+            }, WAIT_TIME);
+        });
+    };
+})();
+
+function $isSameSelection(selection: RangeSelection): boolean {
+    const currentSelection = $getSelection();
+    if (!$isRangeSelection(currentSelection)) {
+        return false;
+    }
+
+    return (
+        selection.isCollapsed() &&
+        selection.anchor.offset === currentSelection.anchor.offset
+    );
+}
+
+function getAdjacentContext(node: LexicalNode) {
+    const topLevelParent = node.getTopLevelElement();
+    const previousSiblings = topLevelParent.getPreviousSiblings();
+    const nextSiblings = topLevelParent.getNextSiblings();
+
+    const previousContext = previousSiblings
+        .map((sibling: LexicalNode) => sibling.getTextContent())
+        .join(" ");
+
+    const nextContext = nextSiblings
+        .map((sibling: LexicalNode) => sibling.getTextContent())
+        .join(" ");
+
+    return {
+        previousContext,
+        nextContext,
+    };
+}
 
 function acceptSuggestion(editor: LexicalEditor) {
     const selection = $getSelection();
@@ -124,9 +190,26 @@ const insertAIAutoComplete = (editor: LexicalEditor) => {
         $isAtNodeEnd(anchor) &&
         anchorNode.getNextSibling() === null
     ) {
-        const autoCompleteNode = $createAutoCompleteNode("auto-complete-test");
-        anchorNode.insertAfter(autoCompleteNode, false);
-        anchorNode.select();
+        // const { previousContext, nextContext } = getAdjacentContext(anchorNode);
+        const textContent = anchorNode.getTextContent();
+        if (textContent.length > 0) {
+            getSuggestionsDebounced(textContent).then((suggestions) => {
+                console.log(suggestions);
+                if (suggestions !== null) {
+                    const receivedText = (suggestions as AutoCompleteResponse)
+                        .message;
+                    editor.update(() => {
+                        if (!$isSameSelection(selection)) {
+                            return;
+                        }
+                        const autoCompleteNode =
+                            $createAutoCompleteNode(receivedText);
+                        anchorNode.insertAfter(autoCompleteNode, false);
+                        anchorNode.select();
+                    });
+                }
+            });
+        }
     }
 };
 

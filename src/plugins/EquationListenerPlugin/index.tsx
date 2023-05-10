@@ -1,4 +1,9 @@
-import { LexicalNode, LexicalEditor } from "lexical";
+import {
+    LexicalNode,
+    LexicalEditor,
+    $getSelection,
+    $isRangeSelection,
+} from "lexical";
 
 import "katex/dist/katex.css";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
@@ -41,9 +46,19 @@ const createEquationNode = (
             $insertNodes([equationNode]);
         }
 
-        if (isInline) {
-            equationNode.insertAfter(spaceNode);
-            spaceNode.select();
+        const selection = $getSelection();
+        if (
+            $isRangeSelection(selection) &&
+            selection.isCollapsed() &&
+            selection.anchor.getNode() === equationNode.getPreviousSibling()
+        ) {
+            const nextSibling = equationNode.getNextSibling();
+            if (nextSibling !== null && $isTextNode(nextSibling)) {
+                nextSibling.select(0, 0);
+            } else {
+                equationNode.insertAfter(spaceNode);
+                spaceNode.select();
+            }
         }
     }
 };

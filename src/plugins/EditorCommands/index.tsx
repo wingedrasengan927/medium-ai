@@ -193,13 +193,14 @@ export function EditorCommandsPlugin() {
 
                     if (selection.isCollapsed() && $isTextNode(anchorNode)) {
                         let previousSibling = anchorNode.getPreviousSibling();
-                        if (previousSibling == null && anchor.offset === 0) {
+                        if (previousSibling === null && anchor.offset === 0) {
                             previousSibling = anchorNode
                                 .getParentOrThrow()
                                 .getPreviousSibling();
                         }
                         if (
                             previousSibling != null &&
+                            anchor.offset === 0 &&
                             ($isEquationNode(previousSibling) ||
                                 $isImageNode(previousSibling))
                         ) {

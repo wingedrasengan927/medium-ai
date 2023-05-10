@@ -27,6 +27,7 @@ import {
     $createAutoCompleteNode,
     AutoCompleteNode,
 } from "../../nodes/AIAutoCompleteNode";
+import { $isHeadingNode, $isQuoteNode } from "@lexical/rich-text";
 
 import { AUTOCOMPLETE_ENDPOINT, WAIT_TIME } from "../../constants";
 
@@ -210,7 +211,10 @@ const insertAIAutoComplete = (editor: LexicalEditor) => {
         selection.isCollapsed() &&
         $isTextNode(anchorNode) &&
         anchorParent !== null &&
-        ($isParagraphNode(anchorParent) || $isListItemNode(anchorParent)) &&
+        ($isParagraphNode(anchorParent) ||
+            $isListItemNode(anchorParent) ||
+            $isQuoteNode(anchorParent) ||
+            $isHeadingNode(anchorParent)) &&
         $isAtNodeEnd(anchor) &&
         anchorNode.getNextSibling() === null
     ) {

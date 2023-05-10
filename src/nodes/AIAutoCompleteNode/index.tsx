@@ -3,9 +3,12 @@ import {
     EditorConfig,
     LexicalNode,
     NodeKey,
+    SerializedTextNode,
     TextNode,
 } from "lexical";
 import { addClassNamesToElement } from "@lexical/utils";
+
+type SerializedAutoCompleteNode = SerializedTextNode;
 
 export class AutoCompleteNode extends TextNode {
     constructor(text: string, key?: NodeKey) {
@@ -29,13 +32,28 @@ export class AutoCompleteNode extends TextNode {
         return dom;
     }
 
+    static importJSON(
+        serializedNode: SerializedAutoCompleteNode
+    ): AutoCompleteNode {
+        const node = $createAutoCompleteNode(serializedNode.text);
+        return node;
+    }
+
+    exportJSON(): SerializedAutoCompleteNode {
+        return {
+            ...super.exportJSON(),
+            type: "autocomplete",
+            version: 1,
+        };
+    }
+
     updateDOM(): boolean {
         return false;
     }
 }
 
-export function $createAutoCompleteNode(text: string, key?: NodeKey) {
-    return $applyNodeReplacement(new AutoCompleteNode(text, key));
+export function $createAutoCompleteNode(text: string): AutoCompleteNode {
+    return $applyNodeReplacement(new AutoCompleteNode(text));
 }
 
 export const $isAutoCompleteNode = (

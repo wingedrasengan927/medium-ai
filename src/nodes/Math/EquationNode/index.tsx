@@ -220,7 +220,11 @@ export class EquationNode extends DecoratorNode<JSX.Element> {
     }
 
     getTextContent(): string {
-        return this.__equation;
+        if (this.__inline) {
+            return `$${this.__equation}$`;
+        } else {
+            return `$$${this.__equation}$$`;
+        }
     }
 
     getEquation(): string {

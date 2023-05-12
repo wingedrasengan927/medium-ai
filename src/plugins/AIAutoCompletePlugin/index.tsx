@@ -28,6 +28,7 @@ import {
     AutoCompleteNode,
 } from "../../nodes/AIAutoCompleteNode";
 import { $isHeadingNode, $isQuoteNode } from "@lexical/rich-text";
+import { AutoCompleteModel } from "../../components/MenuBar";
 
 import { AUTOCOMPLETE_ENDPOINT, WAIT_TIME } from "../../constants";
 
@@ -35,14 +36,15 @@ type AutoCompleteResponse = {
     message: string;
 };
 
-type context = {
+type Context = {
     previousContext: string;
     nextContext: string;
     currentContext: string;
+    modelName: AutoCompleteModel;
 };
 
 async function getAutoCompleteSuggestions(
-    context: context
+    context: Context
 ): Promise<AutoCompleteResponse | null> {
     let response;
     try {
@@ -53,7 +55,9 @@ async function getAutoCompleteSuggestions(
                 "&nextContext=" +
                 context.nextContext +
                 "&currentContext=" +
-                context.currentContext
+                context.currentContext +
+                "&modelName=" +
+                context.modelName
         );
     } catch (e) {
         return null;
@@ -68,7 +72,7 @@ async function getAutoCompleteSuggestions(
 
 const getAutoCompleteSuggestionsDebounced = (() => {
     let timeout: ReturnType<typeof setTimeout> | null = null;
-    return async (context: context) => {
+    return async (context: Context) => {
         if (timeout !== null) {
             clearTimeout(timeout);
         }
@@ -195,7 +199,10 @@ const handleSelectionChange = (editor: LexicalEditor) => {
     return false;
 };
 
-const insertAIAutoComplete = (editor: LexicalEditor) => {
+const insertAIAutoComplete = (
+    editor: LexicalEditor,
+    autoCompleteModel: AutoCompleteModel
+) => {
     deleteAutoCompleteNodes(editor);
 
     const selection = $getSelection();
@@ -243,6 +250,7 @@ const insertAIAutoComplete = (editor: LexicalEditor) => {
             previousContext,
             currentContext,
             nextContext,
+            modelName: autoCompleteModel,
         };
 
         if (currentContext.length > 0) {
@@ -270,18 +278,25 @@ const insertAIAutoComplete = (editor: LexicalEditor) => {
     }
 };
 
-const insertAIAutoCompleteTransform = (editor: LexicalEditor) => {
+const insertAIAutoCompleteTransform = (
+    editor: LexicalEditor,
+    autoCompleteModel: AutoCompleteModel
+) => {
     return editor.registerNodeTransform(RootNode, () =>
-        insertAIAutoComplete(editor)
+        insertAIAutoComplete(editor, autoCompleteModel)
     );
 };
 
-export default function AIAutoCompletePlugin() {
+export default function AIAutoCompletePlugin({
+    autoCompleteModel,
+}: {
+    autoCompleteModel: AutoCompleteModel;
+}) {
     const [editor] = useLexicalComposerContext();
 
     useEffect(() => {
         return mergeRegister(
-            insertAIAutoCompleteTransform(editor),
+            insertAIAutoCompleteTransform(editor, autoCompleteModel),
             editor.registerCommand(
                 SELECTION_CHANGE_COMMAND,
                 () => {
@@ -302,6 +317,6 @@ export default function AIAutoCompletePlugin() {
                 COMMAND_PRIORITY_LOW
             )
         );
-    }, [editor]);
+    }, [editor, autoCompleteModel]);
     return null;
 }

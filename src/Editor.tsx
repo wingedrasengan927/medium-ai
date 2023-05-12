@@ -31,6 +31,7 @@ import { EditorState } from "lexical";
 import { useRef } from "react";
 import AIAutoCompletePlugin from "./plugins/AIAutoCompletePlugin";
 import { AutoCompleteNode } from "./nodes/AIAutoCompleteNode";
+import { AutoCompleteModel } from "./components/MenuBar";
 
 // load initial state from a json file
 import data from "./assets/initialState.json";
@@ -39,7 +40,11 @@ function Placeholder() {
     return <></>;
 }
 
-export default function Editor() {
+export default function Editor({
+    autoCompleteModel,
+}: {
+    autoCompleteModel: AutoCompleteModel;
+}) {
     const editorStateRef = useRef<EditorState | null>(null);
 
     const initialConfig = {
@@ -100,7 +105,11 @@ export default function Editor() {
                     <CodeActionMenuPlugin />
                     <ListPlugin />
                     <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
-                    <AIAutoCompletePlugin />
+                    {autoCompleteModel !== "none" && (
+                        <AIAutoCompletePlugin
+                            autoCompleteModel={autoCompleteModel}
+                        />
+                    )}
                 </div>
             </div>
         </LexicalComposer>

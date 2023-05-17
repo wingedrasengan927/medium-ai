@@ -12,6 +12,9 @@ export default function LoadInitialStatePlugin() {
         if (response.ok) {
             const data = await response.json();
             return data;
+        } else if (response.status === 404) {
+            console.log("No saved state");
+            return null;
         } else {
             console.log("Error loading");
         }

@@ -4,6 +4,7 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 type MenuBarProps = {
     currentModel: AutoCompleteModel;
     setCurrentModel: (model: AutoCompleteModel) => void;
+    saveState: () => void;
 };
 
 export type AutoCompleteModel =
@@ -19,7 +20,11 @@ export type AutoCompleteModel =
     | "text-ada-001"
     | "none";
 
-const MenuBar = ({ currentModel, setCurrentModel }: MenuBarProps) => {
+const MenuBar = ({
+    currentModel,
+    setCurrentModel,
+    saveState,
+}: MenuBarProps) => {
     const models = [
         "text-davinci-003",
         "text-davinci-002",
@@ -50,7 +55,7 @@ const MenuBar = ({ currentModel, setCurrentModel }: MenuBarProps) => {
                     <label
                         tabIndex={0}
                         onClick={() => setShowOptions(!showOptions)}
-                        className="btn btn-ghost"
+                        className="btn btn-ghost btn-sm"
                     >
                         {currentModel}
                     </label>
@@ -78,6 +83,12 @@ const MenuBar = ({ currentModel, setCurrentModel }: MenuBarProps) => {
                         </ul>
                     )}
                 </div>
+                <button
+                    className="btn btn-sm btn-accent ml-4"
+                    onClick={saveState}
+                >
+                    Save
+                </button>
             </div>
         </div>
     );

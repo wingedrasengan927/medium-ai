@@ -27,14 +27,11 @@ import { MarkdownShortcutPlugin } from "@lexical/react/LexicalMarkdownShortcutPl
 import { TRANSFORMERS } from "@lexical/markdown";
 import { ListItemNode, ListNode } from "@lexical/list";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
-import { EditorState } from "lexical";
-import { useRef } from "react";
 import AIAutoCompletePlugin from "./plugins/AIAutoCompletePlugin";
 import { AutoCompleteNode } from "./nodes/AIAutoCompleteNode";
 import { AutoCompleteModel } from "./components/MenuBar";
-
-// load initial state from a json file
-import data from "./assets/initialState.json";
+import { EditorState } from "lexical";
+import LoadInitialStatePlugin from "./plugins/LoadInitialStatePlugin";
 
 function Placeholder() {
     return <></>;
@@ -42,13 +39,13 @@ function Placeholder() {
 
 export default function Editor({
     autoCompleteModel,
+    editorStateRef,
 }: {
     autoCompleteModel: AutoCompleteModel;
+    editorStateRef: React.MutableRefObject<EditorState | null>;
 }) {
-    const editorStateRef = useRef<EditorState | null>(null);
-
     const initialConfig = {
-        editorState: JSON.stringify(data),
+        editorState: null,
         namespace: "MyEditor",
         onError(error: Error) {
             throw error;
@@ -105,6 +102,7 @@ export default function Editor({
                     <CodeActionMenuPlugin />
                     <ListPlugin />
                     <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
+                    <LoadInitialStatePlugin />
                     {autoCompleteModel !== "none" && (
                         <AIAutoCompletePlugin
                             autoCompleteModel={autoCompleteModel}

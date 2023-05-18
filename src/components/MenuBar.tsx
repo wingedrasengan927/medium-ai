@@ -5,6 +5,7 @@ type MenuBarProps = {
     currentModel: AutoCompleteModel;
     setCurrentModel: (model: AutoCompleteModel) => void;
     saveState: () => void;
+    isSaveFailed: boolean;
 };
 
 export type AutoCompleteModel =
@@ -24,6 +25,7 @@ const MenuBar = ({
     currentModel,
     setCurrentModel,
     saveState,
+    isSaveFailed,
 }: MenuBarProps) => {
     const models = [
         "text-davinci-003",
@@ -84,10 +86,13 @@ const MenuBar = ({
                     )}
                 </div>
                 <button
-                    className="btn btn-sm btn-accent ml-4"
+                    className={
+                        "btn btn-sm btn-accent ml-4" +
+                        (isSaveFailed ? " btn-error" : "")
+                    }
                     onClick={saveState}
                 >
-                    Save
+                    {isSaveFailed ? "Save Failed" : "Save"}
                 </button>
             </div>
         </div>

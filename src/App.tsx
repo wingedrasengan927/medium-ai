@@ -10,6 +10,7 @@ import { AutoCompleteModel } from "./components/MenuBar";
 function App() {
     const [currentModel, setCurrentModel] =
         useState<AutoCompleteModel>("text-ada-001");
+    const [isSaveFailed, setIsSaveFailed] = useState(false);
     const editorStateRef = useRef<EditorState | null>(null);
 
     const saveContent = async () => {
@@ -17,17 +18,24 @@ function App() {
             return;
         }
         const content = editorStateRef.current;
-        const response = await fetch(SAVE_ENDPOINT, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(content),
-        });
-        if (response.ok) {
-            console.log("Saved!");
-        } else {
-            console.log("Error saving");
+        try {
+            const response = await fetch(SAVE_ENDPOINT, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(content),
+            });
+            if (response.ok) {
+                console.log("Saved!");
+                setIsSaveFailed(false);
+            } else {
+                console.log("Error saving");
+                setIsSaveFailed(true);
+            }
+        } catch (e) {
+            console.log("Error saving: Backend not running?");
+            setIsSaveFailed(true);
         }
     };
 
@@ -39,6 +47,7 @@ function App() {
                 currentModel={currentModel}
                 setCurrentModel={setCurrentModel}
                 saveState={saveContentDebounced}
+                isSaveFailed={isSaveFailed}
             />
             <Editor
                 autoCompleteModel={currentModel}

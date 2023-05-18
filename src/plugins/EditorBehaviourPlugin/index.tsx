@@ -114,6 +114,12 @@ const removeExtraSpaces = (node: LexicalNode) => {
         return;
     }
 
+    // handle code node
+    const parent = node.getParent();
+    if ($isCodeNode(parent)) {
+        return;
+    }
+
     const textContent = node.getTextContent();
 
     const getPointProperties = (point: Point) => {

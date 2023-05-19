@@ -71,8 +71,6 @@ function FloatingLinkEditor({
             return;
         }
 
-        setEditMode(false);
-
         const rootElement = editor.getRootElement();
 
         if (
@@ -82,6 +80,7 @@ function FloatingLinkEditor({
             rootElement.contains(nativeSelection.anchorNode) &&
             editor.isEditable()
         ) {
+            setEditMode(false);
             const domRect =
                 nativeSelection.focusNode?.parentElement?.getBoundingClientRect();
             if (domRect != null) {
@@ -95,7 +94,10 @@ function FloatingLinkEditor({
             // update the selection and re-render the component
             // if the selection is different from the last selection
             setLastSelection(selection);
-        } else if (!activeElement || activeElement.className !== "link-input") {
+        } else if (
+            !activeElement ||
+            !activeElement?.classList.contains("link-input")
+        ) {
             if (rootElement !== null) {
                 setFloatingElemPositionForLinkEditor(
                     null,
@@ -212,7 +214,7 @@ function FloatingLinkEditor({
                     <input
                         ref={inputRef}
                         value={editedLinkUrl}
-                        className="bg-transparent border-0 outline-0 w-full"
+                        className="link-input bg-transparent border-0 outline-0 w-full"
                         // update the link url whenever the input value changes
                         onChange={(event) => {
                             setEditedLinkUrl(event.target.value);

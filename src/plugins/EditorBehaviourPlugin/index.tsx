@@ -19,6 +19,7 @@ import { useEffect } from "react";
 import { HeadingNode, $isHeadingNode } from "@lexical/rich-text";
 import { $isHorizontalDividerNode } from "../../nodes/HorizontalDividerNode";
 import { $isCodeNode, $createCodeNode } from "@lexical/code";
+import { $isLinkNode } from "@lexical/link";
 
 const insertParagraphAtEnd = () => {
     // If the last child of the root is Decorator node,
@@ -183,6 +184,15 @@ const cleanHeadingNode = (headingNode: LexicalNode) => {
     children.forEach((child: LexicalNode) => {
         if ($isTextNode(child)) {
             child.setFormat(0);
+        } else if ($isLinkNode(child)) {
+            const parent = child;
+            const children = parent.getChildren();
+
+            for (let i = 0; i < children.length; i++) {
+                parent.insertBefore(children[i]);
+            }
+
+            parent.remove();
         } else {
             child.remove();
         }

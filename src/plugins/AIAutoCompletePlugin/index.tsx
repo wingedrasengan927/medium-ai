@@ -294,6 +294,22 @@ export default function AIAutoCompletePlugin({
 }) {
     const [editor] = useLexicalComposerContext();
 
+    // trigger function when user presses ctrl+space
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.ctrlKey && event.key === " ") {
+                event.preventDefault();
+                editor.update(() => {
+                    insertAIAutoComplete(editor, autoCompleteModel);
+                });
+            }
+        };
+        document.addEventListener("keydown", handleKeyDown);
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown);
+        };
+    }, [editor, autoCompleteModel]);
+
     useEffect(() => {
         return mergeRegister(
             insertAIAutoCompleteTransform(editor, autoCompleteModel),

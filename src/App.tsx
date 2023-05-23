@@ -9,7 +9,7 @@ import { AutoCompleteModel } from "./components/MenuBar";
 
 function App() {
     const [currentModel, setCurrentModel] =
-        useState<AutoCompleteModel>("text-ada-001");
+        useState<AutoCompleteModel>("text-curie-001");
     const [isSaveFailed, setIsSaveFailed] = useState(false);
     const editorStateRef = useRef<EditorState | null>(null);
 

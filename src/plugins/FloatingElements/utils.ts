@@ -143,6 +143,50 @@ export function setFloatingElemPositionForTextFormatToolbar(
     floatingElem.style.opacity = "1";
 }
 
+const AI_EDITOR_VERTICAL_GAP = 10;
+
+export function setFloatingElemPositionForAIEditor(
+    targetRect: DOMRect | null,
+    floatingElem: HTMLElement,
+    anchorElem: HTMLElement,
+    verticalGap = AI_EDITOR_VERTICAL_GAP
+) {
+    const scrollerElem = anchorElem.parentElement;
+
+    if (targetRect === null || !scrollerElem) {
+        floatingElem.style.opacity = "0";
+        floatingElem.style.transform = "translate(-1000px, -1000px)";
+        return;
+    }
+
+    const floatingElemRect = floatingElem.getBoundingClientRect();
+    const anchorElemRect = anchorElem.getBoundingClientRect();
+    const editorScrollerRect = scrollerElem.getBoundingClientRect();
+
+    // the floating element would be placed at the bottom center of the target element
+    let top = targetRect.top + targetRect.height + verticalGap;
+    let left =
+        targetRect.left + targetRect.width / 2 - floatingElemRect.width / 2;
+
+    if (top + floatingElemRect.height > window.innerHeight) {
+        top = targetRect.top - floatingElemRect.height - verticalGap;
+    }
+
+    if (left + floatingElemRect.width > editorScrollerRect.right) {
+        left = editorScrollerRect.right - floatingElemRect.width;
+    }
+
+    if (left < editorScrollerRect.left) {
+        left = editorScrollerRect.left;
+    }
+
+    top -= anchorElemRect.top;
+    left -= anchorElemRect.left;
+
+    floatingElem.style.transform = `translate(${left}px, ${top}px)`;
+    floatingElem.style.opacity = "1";
+}
+
 export function sanitizeUrl(url: string) {
     /** A pattern that matches safe  URLs. */
     const SAFE_URL_PATTERN =

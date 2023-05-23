@@ -71,3 +71,41 @@
     src: url("../assets/fonts/Lato/Lato-Light.ttf");
     font-weight: lighter;
 }
+
+/* Load poppins font */
+@font-face {
+    font-family: "poppins";
+    src: url("../assets/fonts/Poppins/Poppins-Medium.ttf");
+}
+
+@font-face {
+    font-family: "poppins";
+    src: url("../assets/fonts/Poppins/Poppins-Italic.ttf");
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "poppins";
+    src: url("../assets/fonts/Poppins/Poppins-Bold.ttf");
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "poppins";
+    src: url("../assets/fonts/Poppins/Poppins-BoldItalic.ttf");
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "poppins";
+    src: url("../assets/fonts/Poppins/Poppins-Light.ttf");
+    font-weight: lighter;
+}
+
+@font-face {
+    font-family: "poppins";
+    src: url("../assets/fonts/Poppins/Poppins-LightItalic.ttf");
+    font-weight: lighter;
+    font-style: italic;
+}

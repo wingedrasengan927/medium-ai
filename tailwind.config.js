@@ -8,6 +8,7 @@ export default {
                 robotomono: ["roboto-mono", "monospace"],
                 title: ["dm-serif-display", "serif"],
                 lato: ["lato", "sans-serif"],
+                poppins: ["poppins", "sans-serif"],
             },
         },
     },

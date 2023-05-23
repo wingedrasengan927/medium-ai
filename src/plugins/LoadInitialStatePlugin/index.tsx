@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { LOAD_ENDPOINT } from "../../constants";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { EditorState } from "lexical";
+import { $nodesOfType, EditorState, LexicalEditor, TextNode } from "lexical";
 
 export default function LoadInitialStatePlugin() {
     const [initialState, setInitialState] = useState<EditorState | null>(null);
@@ -24,6 +24,17 @@ export default function LoadInitialStatePlugin() {
         }
     };
 
+    const removeHighlight = (editor: LexicalEditor) => {
+        editor.update(() => {
+            const textNodes = $nodesOfType(TextNode);
+            textNodes.forEach((node) => {
+                if (node.hasFormat("highlight")) {
+                    node.toggleFormat("highlight");
+                }
+            });
+        });
+    };
+
     useEffect(() => {
         if (initialState === null) {
             loadState().then((data) => {
@@ -31,6 +42,7 @@ export default function LoadInitialStatePlugin() {
                     setInitialState(data);
                     const initialEditorState = editor.parseEditorState(data);
                     editor.setEditorState(initialEditorState);
+                    removeHighlight(editor);
                 }
             });
         }

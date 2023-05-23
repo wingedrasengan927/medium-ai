@@ -9,6 +9,7 @@ import {
     KEY_BACKSPACE_COMMAND,
     LexicalEditor,
     COMMAND_PRIORITY_HIGH,
+    $isDecoratorNode,
 } from "lexical";
 import { mergeRegister, $findMatchingParent } from "@lexical/utils";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
@@ -18,7 +19,9 @@ import {
     HeadingTagType,
     $createQuoteNode,
     $isQuoteNode,
+    $isHeadingNode,
 } from "@lexical/rich-text";
+import { $isCodeNode } from "@lexical/code";
 import { $setBlocksType } from "@lexical/selection";
 import { getSelectedNode } from "../FloatingElements/utils";
 import { $isLinkNode } from "@lexical/link";
@@ -145,6 +148,40 @@ export const insertBlockQuoteCommand = (
         editor.dispatchCommand(FORMAT_QUOTE_COMMAND, undefined);
     }
 };
+
+export function isChatDisabled(editor: LexicalEditor) {
+    let isDisabled = false;
+    editor.getEditorState().read(() => {
+        const selection = $getSelection();
+        if (!$isRangeSelection(selection)) {
+            isDisabled = true;
+            return true;
+        }
+        const nodes = selection.getNodes();
+        if (nodes.length > 1) {
+            for (let i = 0; i < nodes.length; i++) {
+                let node = nodes[i];
+                if ($isDecoratorNode(node)) {
+                    isDisabled = true;
+                    return true;
+                }
+                if ($isTextNode(node)) {
+                    node = node.getParentOrThrow();
+                }
+                // only allow one heading or quote node
+                if (
+                    $isQuoteNode(node) ||
+                    $isHeadingNode(node) ||
+                    $isCodeNode(node)
+                ) {
+                    isDisabled = true;
+                    return true;
+                }
+            }
+        }
+    });
+    return isDisabled;
+}
 
 export function EditorCommandsPlugin() {
     const [editor] = useLexicalComposerContext();

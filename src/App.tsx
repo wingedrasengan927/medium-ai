@@ -1,6 +1,6 @@
 import Editor from "./Editor";
 import MenuBar from "./components/MenuBar";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { EditorState } from "lexical";
 import { SAVE_ENDPOINT } from "./constants";
 import { useDebounce } from "./plugins/FloatingElements/CodeActionMenu/utils";
@@ -40,6 +40,20 @@ function App() {
     };
 
     const saveContentDebounced = useDebounce(saveContent, 1000);
+
+    useEffect(() => {
+        const saveOnKeyPress = (e: KeyboardEvent) => {
+            if (e.key === "s" && (e.ctrlKey || e.metaKey)) {
+                e.preventDefault();
+                saveContentDebounced();
+            }
+        };
+        document.addEventListener("keydown", saveOnKeyPress);
+
+        return () => {
+            document.removeEventListener("keydown", saveOnKeyPress);
+        };
+    }, []);
 
     return (
         <>

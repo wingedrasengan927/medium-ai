@@ -22,6 +22,7 @@ import {
     isHeadingAtSelection,
     isBlockQuoteAtSelection,
     insertBlockQuoteCommand,
+    isChatDisabled,
 } from "../../EditorCommands";
 
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
@@ -34,6 +35,8 @@ import InsertLinkIcon from "@mui/icons-material/InsertLink";
 import TitleIcon from "@mui/icons-material/Title";
 import FormatSizeIcon from "@mui/icons-material/FormatSize";
 import FormatQuoteIcon from "@mui/icons-material/FormatQuote";
+import ChatIcon from "@mui/icons-material/Chat";
+import FloatingAIEditor from "../FloatingAIEditor";
 
 type FloatingTextFormatToolbarProps = {
     editor: LexicalEditor;
@@ -61,6 +64,7 @@ function FloatingTextFormatToolbar({
     isLink,
 }: FloatingTextFormatToolbarProps) {
     const popUpToolbarRef = useRef(null);
+    const [showAIEditToolbar, setShowAIEditToolbar] = useState(false);
 
     const isFormatDisabled = () => {
         return isHeadingOne || isHeadingTwo || isHeadingThree || isQuote;
@@ -176,89 +180,119 @@ function FloatingTextFormatToolbar({
         );
     }, [editor, updateTextFormatFloatingToolbar]);
 
-    return (
-        <div
-            ref={popUpToolbarRef}
-            className="absolute z-10 top-0 left-0 opacity-0"
-        >
-            {editor.isEditable() && (
-                <>
-                    <div className="btn-group btn-group-horizontal">
-                        <button
-                            onClick={() => {
-                                editor.dispatchCommand(
-                                    FORMAT_TEXT_COMMAND,
-                                    "bold"
-                                );
-                            }}
-                            className={"btn" + (isBold ? " btn-active" : "")}
-                            type="button"
-                            disabled={isFormatDisabled()}
-                        >
-                            <FormatBoldIcon />
-                        </button>
-                        <button
-                            onClick={() => {
-                                editor.dispatchCommand(
-                                    FORMAT_TEXT_COMMAND,
-                                    "italic"
-                                );
-                            }}
-                            className={"btn" + (isItalic ? " btn-active" : "")}
-                            type="button"
-                            disabled={isFormatDisabled()}
-                        >
-                            <FormatItalicIcon />
-                        </button>
-                        <button
-                            onClick={() => {
-                                editor.dispatchCommand(
-                                    FORMAT_TEXT_COMMAND,
-                                    "code"
-                                );
-                            }}
-                            className={"btn" + (isCode ? " btn-active" : "")}
-                            type="button"
-                            disabled={isFormatDisabled()}
-                        >
-                            <CodeIcon />
-                        </button>
-                        <button
-                            onClick={insertHeadingOne}
-                            className={
-                                "btn" + (isHeadingOne ? " btn-active" : "")
-                            }
-                            type="button"
-                        >
-                            <TitleIcon />
-                        </button>
-                        <button
-                            onClick={insertSubHeading}
-                            className={"btn " + setClassForSubHeading()}
-                            type="button"
-                        >
-                            <FormatSizeIcon />
-                        </button>
-                        <button
-                            onClick={insertBlockQuote}
-                            className={"btn " + (isQuote ? " btn-active" : "")}
-                            type="button"
-                        >
-                            <FormatQuoteIcon />
-                        </button>
-                        <button
-                            onClick={insertLink}
-                            className={"btn" + (isLink ? " btn-active" : "")}
-                            type="button"
-                            disabled={isFormatDisabled()}
-                        >
-                            <InsertLinkIcon />
-                        </button>
-                    </div>
-                </>
-            )}
-        </div>
-    );
+    if (showAIEditToolbar) {
+        return (
+            <FloatingAIEditor
+                editor={editor}
+                anchorElem={anchorElem}
+                setShowAIEditToolbar={setShowAIEditToolbar}
+            />
+        );
+    } else {
+        return (
+            <div
+                ref={popUpToolbarRef}
+                className="absolute z-10 top-0 left-0 opacity-0"
+            >
+                {editor.isEditable() && (
+                    <>
+                        <div className="btn-group btn-group-horizontal">
+                            <button
+                                onClick={() => {
+                                    editor.dispatchCommand(
+                                        FORMAT_TEXT_COMMAND,
+                                        "bold"
+                                    );
+                                }}
+                                className={
+                                    "btn" + (isBold ? " btn-active" : "")
+                                }
+                                type="button"
+                                disabled={isFormatDisabled()}
+                            >
+                                <FormatBoldIcon />
+                            </button>
+                            <button
+                                onClick={() => {
+                                    editor.dispatchCommand(
+                                        FORMAT_TEXT_COMMAND,
+                                        "italic"
+                                    );
+                                }}
+                                className={
+                                    "btn" + (isItalic ? " btn-active" : "")
+                                }
+                                type="button"
+                                disabled={isFormatDisabled()}
+                            >
+                                <FormatItalicIcon />
+                            </button>
+                            <button
+                                onClick={() => {
+                                    editor.dispatchCommand(
+                                        FORMAT_TEXT_COMMAND,
+                                        "code"
+                                    );
+                                }}
+                                className={
+                                    "btn" + (isCode ? " btn-active" : "")
+                                }
+                                type="button"
+                                disabled={isFormatDisabled()}
+                            >
+                                <CodeIcon />
+                            </button>
+                            <button
+                                onClick={insertHeadingOne}
+                                className={
+                                    "btn" + (isHeadingOne ? " btn-active" : "")
+                                }
+                                type="button"
+                            >
+                                <TitleIcon />
+                            </button>
+                            <button
+                                onClick={insertSubHeading}
+                                className={"btn " + setClassForSubHeading()}
+                                type="button"
+                            >
+                                <FormatSizeIcon />
+                            </button>
+                            <button
+                                onClick={insertBlockQuote}
+                                className={
+                                    "btn " + (isQuote ? " btn-active" : "")
+                                }
+                                type="button"
+                            >
+                                <FormatQuoteIcon />
+                            </button>
+                            <button
+                                onClick={insertLink}
+                                className={
+                                    "btn" + (isLink ? " btn-active" : "")
+                                }
+                                type="button"
+                                disabled={isFormatDisabled()}
+                            >
+                                <InsertLinkIcon />
+                            </button>
+                            <button
+                                onClick={() => {
+                                    setShowAIEditToolbar(true);
+                                }}
+                                className={"btn"}
+                                type="button"
+                                disabled={isChatDisabled(editor)}
+                            >
+                                <ChatIcon />
+                            </button>
+                        </div>
+                    </>
+                )}
+            </div>
+        );
+    }
 }
 
 function useFloatingTextFormatToolbar(
@@ -283,12 +317,24 @@ function useFloatingTextFormatToolbar(
             const selection = $getSelection();
             const nativeSelection = window.getSelection();
             const rootElement = editor.getRootElement();
+            let isInsideAIEditor = false;
+
+            // A hack to allow the user to enter into the AI edit toolbar
+            const AIEditorElement =
+                document.getElementsByClassName("floating-ai-editor")[0];
+            if (
+                AIEditorElement !== undefined &&
+                nativeSelection !== null &&
+                AIEditorElement.contains(nativeSelection.anchorNode)
+            ) {
+                isInsideAIEditor = true;
+            }
 
             if (
                 nativeSelection !== null &&
-                (!$isRangeSelection(selection) ||
-                    rootElement === null ||
-                    !rootElement.contains(nativeSelection.anchorNode))
+                (rootElement === null ||
+                    (!rootElement.contains(nativeSelection.anchorNode) &&
+                        !isInsideAIEditor))
             ) {
                 setIsText(false);
                 return;

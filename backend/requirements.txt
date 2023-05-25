@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+openai
+tiktoken
+loguru
+python-dotenv

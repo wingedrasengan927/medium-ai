@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { LOAD_ENDPOINT } from "../../constants";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $nodesOfType, EditorState, LexicalEditor, TextNode } from "lexical";
+import { reduceParagraphMargin } from "../EditorBehaviourPlugin";
 
 export default function LoadInitialStatePlugin() {
     const [initialState, setInitialState] = useState<EditorState | null>(null);
@@ -35,6 +36,12 @@ export default function LoadInitialStatePlugin() {
         });
     };
 
+    const reduceParagraphMarginOnLoad = (editor: LexicalEditor) => {
+        editor.update(() => {
+            reduceParagraphMargin(editor);
+        });
+    };
+
     useEffect(() => {
         if (initialState === null) {
             loadState().then((data) => {
@@ -43,6 +50,7 @@ export default function LoadInitialStatePlugin() {
                     const initialEditorState = editor.parseEditorState(data);
                     editor.setEditorState(initialEditorState);
                     removeHighlight(editor);
+                    reduceParagraphMarginOnLoad(editor);
                 }
             });
         }

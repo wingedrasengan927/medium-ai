@@ -33,7 +33,7 @@ const insertParagraphAtEnd = () => {
     }
 };
 
-const reduceParagraphMargin = (editor: LexicalEditor) => {
+export const reduceParagraphMargin = (editor: LexicalEditor) => {
     // if a paragraph node is just below a heading node,
     // we reduce it's top margin
     const rootNode = $getRoot();

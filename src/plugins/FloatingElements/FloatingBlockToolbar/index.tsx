@@ -205,7 +205,7 @@ function FloatingBlockToolbarComponent({
                 <div className="flex flex-row items-center justify-between ml-5">
                     <input
                         type="file"
-                        accept="image/png, image/jpg"
+                        accept="image/png, image/jpg, image/gif, image/jpeg"
                         ref={imageInputRef}
                         onChange={onFileChange}
                         className="hidden"

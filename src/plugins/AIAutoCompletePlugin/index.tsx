@@ -48,17 +48,13 @@ async function getAutoCompleteSuggestions(
 ): Promise<AutoCompleteResponse | null> {
     let response;
     try {
-        response = await fetch(
-            AUTOCOMPLETE_ENDPOINT +
-                "?previousContext=" +
-                context.previousContext +
-                "&nextContext=" +
-                context.nextContext +
-                "&currentContext=" +
-                context.currentContext +
-                "&modelName=" +
-                context.modelName
-        );
+        response = await fetch(AUTOCOMPLETE_ENDPOINT, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(context),
+        });
     } catch (e) {
         return null;
     }

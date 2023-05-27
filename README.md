@@ -39,17 +39,12 @@ cd medium-ai
    ```shell
    cd frontend
    ```
-   
-   
-   
 
 2. Install dependencies.
    
    ```shell
    npm install
    ```
-   
-   
 
 3. Start dev server with hot reload at [http://localhost:5173](http://localhost:5173/).
    
@@ -59,17 +54,20 @@ cd medium-ai
 
 ### Backend installation
 
-The frontend will run in itself, however if you would want to save data and access AI features, the backend must be running.
+The frontend will run in itself, however if you would want to save the data and access AI features, the backend must be running.
 
-Before running the backend, you need to create an openai API key from [here](https://platform.openai.com/account/api-keys).
+Before running the backend, you need to create an openai API key from [here](https://platform.openai.com/account/api-keys). Follow the below steps next:
 
-1. Copy the key, create a file called `.env` inside the `/backend/app/config` folder and paste your API key like so:
+1. Copy the key, create a file called `.env` inside the `backend/app/config` folder, and paste the API key like so:
    
    ```shell
    OPENAI_KEY=si-IAx6f6cWlgqJ69RVwFKxT3BlbkFJI15IMe23MVM6GVLgjuSD
+   
    ```
    
    ```
+   Folder Structure:
+   
    - medium-ai
    -- frontend
    -- backend
@@ -78,15 +76,10 @@ Before running the backend, you need to create an openai API key from [here](htt
    ----- .env
    ```
 
-2. Next, it's preferable to install an anaconda virtual environment. You can install the anaconda distribution from [here](https://docs.anaconda.com/free/anaconda/install/windows/). After installation, you can create a new virtual environment like so:
+2. Next, it's preferable to install an anaconda virtual environment. You can install the anaconda distribution from [here](https://docs.anaconda.com/free/anaconda/install/windows/). After installation, you can create a new virtual environment and activate it using the following command:
    
    ```
    conda create -n medium-ai python==3.9 anaconda
-   ```
-   
-   After the virtual environment has been created, you can activate it using the following command:
-   
-   ```shell
    conda activate medium-ai
    ```
 
@@ -97,17 +90,13 @@ Before running the backend, you need to create an openai API key from [here](htt
    pip install -r requirements.txt
    ```
 
-4. To start the server, run the following command:
+4. Make sure you're inside the `backend` directory and run the following command to start the server running on port `8080`.
    
    ```
    python main.py
    ```
-   
-   make sure you're inside the `backend` folder before running the command. This will start a server running at port `8080`.
 
-5. Next, refresh your browser and the frontend will automatically pick up the saved data (if any) stored at `backend/app/data`
-   
-   
+5. Finally, refresh the browser and the frontend will automatically pick up the saved data (if any) stored at `backend/app/data/editor_state.json`
 
 ## End Notes
 

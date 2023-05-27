@@ -46,7 +46,7 @@ const MenuBar = ({
     return (
         <div className="navbar bg-white flex flex-row justify-between">
             <a
-                href="https://github.com/wingedrasengan927/lexical-medium-clone"
+                href="https://github.com/wingedrasengan927/medium-ai"
                 className="btn text-black btn-ghost normal-case text-2xl"
             >
                 <GitHubIcon className="mr-2" />

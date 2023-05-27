@@ -46,6 +46,9 @@ def autocomplete(context: AIAutoSuggest):
 def save_state(editor_state: dict):
     logger.info(f"Received request to save state")
 
+    if os.path.exists("app/data") == False:
+        os.makedirs("app/data", exist_ok=True)
+
     try:
         with open("app/data/editor_state.json", "w") as f:
             json.dump(editor_state, f)

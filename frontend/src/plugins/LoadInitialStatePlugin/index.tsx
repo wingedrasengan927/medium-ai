@@ -4,6 +4,8 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import { $nodesOfType, EditorState, LexicalEditor, TextNode } from "lexical";
 import { reduceParagraphMargin } from "../EditorBehaviourPlugin";
 
+import localState from "../../assets/editor_state.json";
+
 export default function LoadInitialStatePlugin() {
     const [initialState, setInitialState] = useState<EditorState | null>(null);
     const [editor] = useLexicalComposerContext();
@@ -22,6 +24,7 @@ export default function LoadInitialStatePlugin() {
             }
         } catch (e) {
             console.log("Error loading: Backend not running?");
+            return JSON.stringify(localState);
         }
     };
 

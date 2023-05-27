@@ -231,7 +231,7 @@ export default function FloatingAIEditor({
             ref={editorToolbarRef}
             className="floating-ai-editor absolute z-10 top-0 left-0 max-w-sm w-full opacity-0 selection:bg-zinc-300"
         >
-            <div className="flex flex-col items-center p-2 pb-1 bg-zinc-50 shadow-md">
+            <div className="flex flex-col items-center p-2 pb-1 bg-zinc-50 shadow-lg">
                 <textarea
                     rows={1}
                     value={instruction}

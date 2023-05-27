@@ -61,7 +61,7 @@ cd medium-ai
 
 The frontend will run in itself, however if you would want to save data and access AI features, the backend must be running.
 
-Before running the backend, you need to create an openai API key from [here]([OpenAI API](https://platform.openai.com/account/api-keys)).
+Before running the backend, you need to create an openai API key from [here](https://platform.openai.com/account/api-keys).
 
 1. Copy the key, create a file called `.env` inside the `/backend/app/config` folder and paste your API key like so:
    
@@ -78,7 +78,7 @@ Before running the backend, you need to create an openai API key from [here]([Op
    ----- .env
    ```
 
-2. Next, it's preferable to install an anaconda virtual environment. You can install the anaconda distribution from [here]([Installing on Windows &#8212; Anaconda documentation](https://docs.anaconda.com/free/anaconda/install/windows/)). After installation, you can create a new virtual environment like so:
+2. Next, it's preferable to install an anaconda virtual environment. You can install the anaconda distribution from [here](https://docs.anaconda.com/free/anaconda/install/windows/). After installation, you can create a new virtual environment like so:
    
    ```
    conda create -n medium-ai python==3.9 anaconda
@@ -116,6 +116,13 @@ If you're looking for a template-free, open-source, AI-powered text editor, medi
 However, it is still in its early days and has some unnoticed bugs. I will keep on improving it with time. If you find any bugs or have any suggestions, please raise an issue. Also, if you want to contribute to the project, please check out the GitHub repository.
 
 **Note**: It's important to take backup of your articles frequently and store it elsewhere just in case something goes wrong.
+
+## Acknowledgements
+
+1. medium-ai is built using [Lexical](https://lexical.dev) - a text editor framework developed by Meta. Most of the plugins are taken from the [lexical playground](https://playground.lexical.dev/) and have been modified slightly.
+2. [DaisyUI](https://daisyui.com/) has been used to create most of the UI components.
+
+Thanks to lexical core members and the amazing community for all the help.
 
 ## License
 

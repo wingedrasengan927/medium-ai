@@ -210,7 +210,19 @@ export default function ImageComponent({
     return (
         <Suspense fallback={null}>
             <>
-                <div ref={imageContainerRef}>
+                <div
+                    ref={imageContainerRef}
+                    onMouseEnter={() => {
+                        if (!isSelected && imageContainerRef.current) {
+                            imageContainerRef.current.className = "image-hover";
+                        }
+                    }}
+                    onMouseLeave={() => {
+                        if (!isSelected && imageContainerRef.current) {
+                            imageContainerRef.current.className = "";
+                        }
+                    }}
+                >
                     <LazyImage
                         src={src}
                         altText={altText}

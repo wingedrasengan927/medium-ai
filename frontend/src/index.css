@@ -68,6 +68,10 @@ body {
     @apply w-full mt-7;
 }
 
+.editor-image .image-hover {
+    @apply hover:border-4 hover:border-sky-300 hover:shadow-lg transition-all duration-200 ease-in-out;
+}
+
 .image-selected {
     @apply border-4 border-sky-500;
 }

@@ -1,12 +1,12 @@
 @tailwind base;
 
 .editor-code {
-    @apply bg-gray-100 font-robotomono font-light text-base block py-4 px-14 mt-7 relative overflow-x-auto leading-8 box-border;
+    @apply bg-gray-100 font-robotomono font-light text-base block py-8 px-14 mt-7 relative overflow-x-auto leading-8 box-border;
     tab-size: 4;
 }
 
 .editor-code:before {
-    @apply absolute left-0 top-0 border-r-2 border-solid border-gray-200 bg-gray-100 text-gray-400 text-right p-4 whitespace-pre-wrap;
+    @apply absolute left-0 top-0 border-r-2 border-solid border-gray-200 bg-gray-100 text-gray-400 text-right p-4 py-8 whitespace-pre-wrap;
     content: attr(data-gutter);
     min-width: 25px;
 }

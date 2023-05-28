@@ -169,7 +169,7 @@ function CodingActionMenuContainer({
                     {showCodeLanguages && (
                         <ul
                             tabIndex={0}
-                            className="dropdown-content flex-nowrap menu menu-compact shadow-lg shadow-gray-200 font-lato p-2 bg-white text-sm text-gray-700 rounded-box w-32 max-h-80 overflow-y-scroll"
+                            className="dropdown-content flex-nowrap menu menu-compact shadow-lg shadow-gray-200 font-poppins p-2 bg-white text-sm text-gray-700 rounded-box w-36 max-h-80 overflow-y-scroll"
                         >
                             {codeLanguages.map((lang) => (
                                 <li key={lang}>

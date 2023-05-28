@@ -64,7 +64,7 @@ const MenuBar = ({
                     {showOptions && (
                         <ul
                             tabIndex={0}
-                            className="dropdown-content menu-compact menu p-2 shadow rounded-box bg-white text-black font-lato w-44"
+                            className="dropdown-content menu-compact menu p-2 shadow rounded-box bg-white text-black font-poppins w-44"
                         >
                             {models.map((model) => (
                                 <li key={model}>

@@ -239,7 +239,7 @@ export default function ImageComponent({
                         ref={textAreaRef}
                         value={currentCaption}
                         onChange={onInput}
-                        className="h-auto text-sm font-lato text-gray-600 w-full text-center p-2 pb-0 focus:outline-none overflow-hidden bg-white resize-none"
+                        className="h-auto text-sm font-poppins text-gray-600 w-full text-center p-2 pb-0 focus:outline-none overflow-hidden bg-white resize-none"
                         placeholder="Enter a caption (optional)"
                     ></textarea>
                 </div>
